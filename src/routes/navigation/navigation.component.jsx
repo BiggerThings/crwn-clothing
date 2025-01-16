@@ -1,9 +1,11 @@
 import { Outlet, Link } from "react-router";
 import { Fragment } from "react";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
-import "./navigation.styles.scss";
+import "./navigation.styles.scss"
 
 const Navigation = () => {
+    console.log("navigation")
+
     return (
       <Fragment>
         <div className="navigation">
