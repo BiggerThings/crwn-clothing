@@ -34,7 +34,7 @@ export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
 
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
     if(!userAuth) {
         return;
     }
@@ -56,6 +56,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
                 displayName,
                 email,
                 createdAt,
+                ...additionalInfo
             })
         } catch (err) {
             console.log(err);
@@ -73,6 +74,11 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
         
         return await createUserWithEmailAndPassword(auth, email, password);
     } catch (err) {
-        console.log(err);
+        if(err.code === "auth/email-already-in-use") {
+            alert("Cannot create user. Email already in use");
+
+        } else {
+            console.log(err);
+        }
     }
 }
