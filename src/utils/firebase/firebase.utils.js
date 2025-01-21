@@ -85,10 +85,18 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 }
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
-    if(!email || !password) {
-        return;
+    try {
+        if(!email || !password) {
+            return;
+        }
+        
+        return await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+        if(err.code === "auth/invalid-credential") {
+            alert("Invalid email/password. Please try again.");
+
+        } else {
+            console.log(err);
+        }
     }
-    
-    return await signInWithEmailAndPassword(auth, email, password);
-   
 }
