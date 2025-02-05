@@ -12,7 +12,7 @@ export const ProductProvider = ({ children }) => {
 
     useEffect(() => {
         setProductList(SHOP_DATA);
-        console.log(SHOP_DATA);
+        //console.log(SHOP_DATA);
     }, []);
 
     return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
