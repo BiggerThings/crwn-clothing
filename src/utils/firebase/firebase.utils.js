@@ -13,7 +13,9 @@ import {
     getFirestore,
     doc,
     getDoc,
-    setDoc
+    setDoc,
+    collection,
+    writeBatch
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -25,7 +27,7 @@ const firebaseConfig = {
     appId: "1:834057447281:web:ac45f245d52f0ff5d1b8d0"
 };
   
-const firebaseApp = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
 provider.setCustomParameters({
@@ -36,6 +38,21 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
+
+export const addCollectionAndDocuments = async (key, objectsToAdd) => {
+    try {
+        const batch = writeBatch(db);
+        
+        objectsToAdd.forEach((obj) => {
+            const docRef = doc(db, key, obj.title.toLowerCase());
+            
+            batch.set(docRef, obj);
+        })
+        await batch.commit();
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
     if(!userAuth) {
