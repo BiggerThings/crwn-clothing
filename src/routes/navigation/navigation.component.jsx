@@ -5,7 +5,6 @@ import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import { UserContext } from "../../contexts/user.context";
 import { CartContext } from "../../contexts/cart.context";
-import { ProductContext } from "../../contexts/product.context";
 import "./navigation.styles.scss"
 import { signOutUser } from  "../../utils/firebase/firebase.utils";;
 
@@ -13,7 +12,6 @@ import { signOutUser } from  "../../utils/firebase/firebase.utils";;
 const Navigation = () => {
     const { currentUser  } = useContext(UserContext);
     const { isCartOpen } = useContext(CartContext);
-    const { productList } = useContext(ProductContext);
 
     return (
       <Fragment>
