@@ -10,9 +10,6 @@ import {
 
 const Checkout = () => {
     const { cartItems, setIsCartOpen, cartItemsTotal } = useContext(CartContext);
-    setIsCartOpen(false);
-    
-    
 
     return (
         <CheckoutContainer>
