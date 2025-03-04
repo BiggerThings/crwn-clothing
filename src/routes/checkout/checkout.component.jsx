@@ -9,7 +9,7 @@ import {
 } from "./checkout.styles.jsx";
 
 const Checkout = () => {
-    const { cartItems, setIsCartOpen, cartItemsTotal } = useContext(CartContext);
+    const { cartItems, cartItemsTotal } = useContext(CartContext);
 
     return (
         <CheckoutContainer>

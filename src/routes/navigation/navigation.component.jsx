@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router";
+import { Outlet } from "react-router";
 import { Fragment, useContext } from "react";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
