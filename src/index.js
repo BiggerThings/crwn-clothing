@@ -1,3 +1,6 @@
+import { Provider } from "react-redux";
+import { store } from "./store/store.js";
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
@@ -11,15 +14,17 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <UserProvider>
-        <CategoriesProvider>
-          <CartProvider>
-            <App />
-          </CartProvider>
-        </CategoriesProvider>
-      </UserProvider>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <UserProvider>
+          <CategoriesProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
+          </CategoriesProvider>
+        </UserProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
