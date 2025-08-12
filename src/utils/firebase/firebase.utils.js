@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { 
-    getAuth, 
+import {
+    getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signInWithPopup,
@@ -21,14 +21,14 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCe7kIXe1LaXgkyBJp1zImqxVM0SI84QcY",
-    authDomain: "crwn-clothing-db-50e39.firebaseapp.com",
-    projectId: "crwn-clothing-db-50e39",
-    storageBucket: "crwn-clothing-db-50e39.firebasestorage.app",
-    messagingSenderId: "834057447281",
-    appId: "1:834057447281:web:ac45f245d52f0ff5d1b8d0"
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
-  
+
 const app = initializeApp(firebaseConfig);
 
 const provider = new GoogleAuthProvider();
@@ -44,17 +44,17 @@ export const db = getFirestore(app);
 export const addCollectionAndDocuments = async (key, objectsToAdd) => {
     try {
         const batch = writeBatch(db);
-        
+
         objectsToAdd.forEach((obj) => {
             const docRef = doc(db, key, obj.title.toLowerCase());
-            
+
             batch.set(docRef, obj);
         })
         await batch.commit();
     } catch (e) {
-      console.error("Error adding document: ", e);
+        console.error("Error adding document: ", e);
     }
-  }
+}
 
 export const getCategoriesAndDocuments = async () => {
     const collectionRef = collection(db, 'categories');
@@ -71,15 +71,15 @@ export const getCategoriesAndDocuments = async () => {
 }
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) => {
-    if(!userAuth) {
+    if (!userAuth) {
         return;
     }
-    
+
     const userDocRef = doc(db, 'users', userAuth.uid);
 
     const userSnapshot = await getDoc(userDocRef);
 
-    if(!userSnapshot.exists()) {
+    if (!userSnapshot.exists()) {
         const { displayName, email } = userAuth;
         const createdAt = new Date();
 
@@ -100,13 +100,13 @@ export const createUserDocumentFromAuth = async (userAuth, additionalInfo = {}) 
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
     try {
-        if(!email || !password) {
+        if (!email || !password) {
             return;
         }
-        
+
         return await createUserWithEmailAndPassword(auth, email, password);
     } catch (err) {
-        if(err.code === "auth/email-already-in-use") {
+        if (err.code === "auth/email-already-in-use") {
             alert("Cannot create user. Email already in use");
 
         } else {
@@ -117,13 +117,13 @@ export const createAuthUserWithEmailAndPassword = async (email, password) => {
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
     try {
-        if(!email || !password) {
+        if (!email || !password) {
             return;
         }
-        
+
         return await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
-        if(err.code === "auth/invalid-credential") {
+        if (err.code === "auth/invalid-credential") {
             alert("Invalid email/password. Please try again.");
 
         } else {
