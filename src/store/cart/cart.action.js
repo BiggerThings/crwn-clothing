@@ -42,12 +42,12 @@ export const addItemToCart = (cartItems, productToAdd) => {
     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
-export const removeItemFromCart = (cartItems, productToDecrement) => {
-    const newCartItems = removeCartItem(cartItems, productToDecrement);
+export const removeItemFromCart = (cartItems, productToRemove) => {
+    const newCartItems = removeCartItem(cartItems, productToRemove);
     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
 
-export const clearItemFromCart = (cartItems, productToRemove) => {
-    const newCartItems = clearCartItem(cartItems, productToRemove);
+export const clearItemFromCart = (cartItems, productToClear) => {
+    const newCartItems = clearCartItem(cartItems, productToClear);
     return createAction(CART_ACTION_TYPES.SET_CART_ITEMS, newCartItems);
 };
