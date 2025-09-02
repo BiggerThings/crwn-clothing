@@ -1,30 +1,33 @@
-import { useContext } from "react";
-import { CartContext } from "../../contexts/cart.context";
-import { 
-    CheckoutItemContainer, 
-    CheckoutItemImageContainer, 
-    CheckoutItemImage, 
-    CheckoutItemInfo, 
-    CheckoutItemQuantity, 
-    CheckoutItemArrow, 
-    CheckoutItemValue, 
-    CheckoutItemRemoveItem } from "./checkout-item.styles.jsx";
+import { useSelector, useDispatch } from "react-redux";
+import { selectCartItems } from "../../store/cart/cart.selector";
+import { addItemToCart, removeItemFromCart, clearItemFromCart } from "../../store/cart/cart.action";
+
+import {
+    CheckoutItemContainer,
+    CheckoutItemImageContainer,
+    CheckoutItemImage,
+    CheckoutItemInfo,
+    CheckoutItemQuantity,
+    CheckoutItemArrow,
+    CheckoutItemValue,
+    CheckoutItemRemoveItem
+} from "./checkout-item.styles.jsx";
 
 const CheckoutItem = ({ cartItem }) => {
     const { name, imageUrl, price, quantity } = cartItem;
-
-    const { incrementCartItemQuantity, decrementCartItemQuantity, removeItemFromCart } = useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    const dispatch = useDispatch();
 
     const addQuantity = () => {
-        incrementCartItemQuantity(cartItem);
+        dispatch(addItemToCart(cartItems, cartItem));
     }
 
     const decreaseQuantity = () => {
-        decrementCartItemQuantity(cartItem);
+        dispatch(removeItemFromCart(cartItems, cartItem));
     }
 
     const removeItem = () => {
-        removeItemFromCart(cartItem);
+        dispatch(clearItemFromCart(cartItems, cartItem));
     }
 
 
@@ -36,7 +39,7 @@ const CheckoutItem = ({ cartItem }) => {
             <CheckoutItemInfo>{name}</CheckoutItemInfo>
             <CheckoutItemQuantity>
                 <CheckoutItemArrow onClick={decreaseQuantity}>&#10094;</CheckoutItemArrow>
-                    <CheckoutItemValue>{quantity}</CheckoutItemValue>
+                <CheckoutItemValue>{quantity}</CheckoutItemValue>
                 <CheckoutItemArrow onClick={addQuantity}>&#10095;</CheckoutItemArrow>
             </CheckoutItemQuantity>
             <CheckoutItemInfo>{price}</CheckoutItemInfo>
