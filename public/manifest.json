@@ -4,18 +4,31 @@
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "sizes": "48x48",
       "type": "image/x-icon"
     },
     {
-      "src": "crown-192x192.png",
+      "src": "crwn-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "crown-512x512.png",
+      "src": "crwn-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/mobile-home.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    },
+    {
+      "src": "screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
     }
   ],
   "start_url": ".",
