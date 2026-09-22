@@ -16,4 +16,16 @@ describe('Navigation component Tests', () => {
         const signInLink = screen.getByText(/SIGN-IN/);
         expect(signInLink).toBeInTheDocument();
     })
+
+    test('It should render  Sign Out link if there is a current user', () => {
+        renderWithProvider(<Navigation />, {
+            preloadedState: {
+                user: {
+                    currentUser: {},
+                },
+            },
+        });
+        const signOutLink = screen.getByText(/SIGN-OUT/);
+        expect(signOutLink).toBeInTheDocument();
+    });
 });
