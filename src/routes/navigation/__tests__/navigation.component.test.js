@@ -28,4 +28,30 @@ describe('Navigation component Tests', () => {
         const signOutLink = screen.getByText(/SIGN-OUT/);
         expect(signOutLink).toBeInTheDocument();
     });
+
+    test('It should render a cart dropdown if isCartOpen is true', () => {
+        renderWithProvider(<Navigation />, {
+            preloadedState: {
+                cart: {
+                    isCartOpen: true,
+                    cartItems: [],
+                },
+            },
+        });
+        const cartDropdown = screen.getByText(/GO TO CHECKOUT/);
+        expect(cartDropdown).toBeInTheDocument();
+    });
+
+    test('It should not render a cart dropdown if isCartOpen is false', () => {
+        renderWithProvider(<Navigation />, {
+            preloadedState: {
+                cart: {
+                    isCartOpen: false,
+                    cartItems: [],
+                },
+            },
+        });
+        const cartDropdown = screen.queryByText(/GO TO CHECKOUT/);
+        expect(cartDropdown).not.toBeInTheDocument();
+    });
 });
