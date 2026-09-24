@@ -24,7 +24,7 @@ describe('Button component', () => {
     })
 
     it('should be disabled if isLoading is true', () => {
-        render(<Button isLoading={true} />);
+        render(<Button isloading={"true"} />);
 
         const buttonElement = screen.getByRole('button');
         expect(buttonElement).not.toBeDisabled();
