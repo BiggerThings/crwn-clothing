@@ -1,4 +1,5 @@
-import { screen } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
+import * as userActions from '../../../store/user/user.action';
 
 import Navigation from '../navigation.component';
 
@@ -54,4 +55,24 @@ describe('Navigation component Tests', () => {
         const cartDropdown = screen.queryByText(/GO TO CHECKOUT/);
         expect(cartDropdown).not.toBeInTheDocument();
     });
+
+    test('it should dispatch signOutStart action when Sign Out link is clicked', () => {
+        const signOutStartSpy = jest.spyOn(userActions, 'signOutStart');
+
+        renderWithProvider(<Navigation />, {
+            preloadedState: {
+                user: {
+                    currentUser: {},
+                },
+            },
+        });
+
+        const signOutElement = screen.getByText(/sign-out/i);
+        fireEvent.click(signOutElement);
+
+        // Assert that the action creator was executed when the link was clicked
+        expect(signOutStartSpy).toHaveBeenCalled();
+    });
+
+
 });
