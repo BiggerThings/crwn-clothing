@@ -23,4 +23,20 @@ describe('Category component Tests', () => {
         const spinner = screen.getByTestId('spinner');
         expect(spinner).toBeInTheDocument();
     });
+
+    test('It should not render a spinner when isLoading is false', () => {
+        renderWithProvider(<Category />, {
+            preloadedState: {
+                categories: {
+                    isLoading: false,
+                    categories: [],
+                },
+            },
+        });
+
+        const spinner = screen.queryByTestId('spinner');
+        expect(spinner).not.toBeInTheDocument();
+    });
+
+
 })
